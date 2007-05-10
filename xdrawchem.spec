@@ -1,6 +1,6 @@
 %define name xdrawchem
 %define version 1.9.9
-%define release %mkrel 2
+%define release %mkrel 3
 
 Summary: 	2D chemical structures drawing tool
 Name: 		%{name}
@@ -50,8 +50,21 @@ section="More Applications/Sciences/Chemistry"\
 title="XDrawChem"\
 icon="chemistry_section.png"\
 longtitle="2D chemical structures drawing tool"
+xdg="true"
 EOF
 
+mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
+cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
+[Desktop Entry]
+Encoding=UTF-8
+Name=XDrawChem
+Comment=2D chemical structure editor
+Exec=%{name}
+Icon=%{name}
+Terminal=false
+Type=Application
+Categories=Science;Chemistry;QT;X-MandrivaLinux-MoreApplications-Sciences-Chemistry;
+EOF
 
 %clean
 rm -rf $RPM_BUILD_ROOT
@@ -74,3 +87,4 @@ rm -rf $RPM_BUILD_ROOT
 %dir %_datadir/xdrawchem
 %_datadir/xdrawchem/*
 %_menudir/*
+%{_datadir}/applications/*.desktop

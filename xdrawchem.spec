@@ -49,7 +49,7 @@ needs="x11"\
 section="More Applications/Sciences/Chemistry"\
 title="XDrawChem"\
 icon="chemistry_section.png"\
-longtitle="2D chemical structures drawing tool"
+longtitle="2D chemical structures drawing tool"\
 xdg="true"
 EOF
 

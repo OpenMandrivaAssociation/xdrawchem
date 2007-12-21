@@ -10,6 +10,7 @@ Source: 	xdrawchem-%{version}.tar.bz2
 URL: 		http://xdrawchem.sourceforge.net
 License: 	BSD
 Group: 		Sciences/Chemistry
+BuildRoot: 	%{_tmppath}/%{name}-buildroot
 BuildRequires: 	qt3-devel openbabel-devel >= 2.0.0
 Requires:	openbabel >= 2.0.0
 Obsoletes:	kde3-xdrawchem

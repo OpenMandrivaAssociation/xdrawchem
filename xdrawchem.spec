@@ -42,16 +42,6 @@ rm -rf $RPM_BUILD_ROOT
 %makeinstall DEST=$RPM_BUILD_ROOT/usr/bin
 
 # menu
-install -d $RPM_BUILD_ROOT%{_menudir}
-cat << EOF > $RPM_BUILD_ROOT%{_menudir}/%{name}
-?package(%{name}):command="xdrawchem"\
-needs="x11"\
-section="More Applications/Sciences/Chemistry"\
-title="XDrawChem"\
-icon="chemistry_section.png"\
-longtitle="2D chemical structures drawing tool"\
-xdg="true"
-EOF
 
 mkdir -p $RPM_BUILD_ROOT%{_datadir}/applications
 cat > $RPM_BUILD_ROOT%{_datadir}/applications/mandriva-%{name}.desktop << EOF
@@ -85,5 +75,4 @@ rm -rf $RPM_BUILD_ROOT
 %_bindir/xdrawchem
 %dir %_datadir/xdrawchem
 %_datadir/xdrawchem/*
-%_menudir/*
 %{_datadir}/applications/*.desktop

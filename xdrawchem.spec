@@ -1,3 +1,5 @@
+%define _disable_ld_no_undefined 1
+
 %define name xdrawchem
 %define version 1.9.9
 %define release %mkrel 5
@@ -7,8 +9,10 @@ Name: 		%{name}
 Version: 	%{version}
 Release: 	%{release}
 Source: 	xdrawchem-%{version}.tar.bz2
+Patch0:		%{name}-gcc43.patch
+Patch1:		%{name}-ob22.patch
 URL: 		http://xdrawchem.sourceforge.net
-License: 	BSD
+License: 	GPLv2+
 Group: 		Sciences/Chemistry
 BuildRoot: 	%{_tmppath}/%{name}-buildroot
 BuildRequires: 	qt3-devel openbabel-devel >= 2.0.0
@@ -25,6 +29,8 @@ XDrawChem and other chemistry applications.
 
 %prep
 %setup -q
+%patch0 -p1 -b .gcc43
+%patch1 -p1 -b .ob
 
 %build
 export QTDIR=%_prefix/lib/qt3
@@ -33,8 +39,8 @@ export LD_LIBRARY_PATH=$QTDIR/lib:$KDEDIR/lib:$LD_LIBRARY_PATH
 export PATH=$QTDIR/bin:$KDEDIR/bin:$PATH
 
 
-%configure2_5x --with-qtlibdir=%_prefix/lib/qt3/%_lib/
-
+%configure2_5x --with-qtlibdir=%_prefix/lib/qt3/%_lib/ 
+	
 %make qtlibname=qt-mt
 
 %install
@@ -52,7 +58,7 @@ Exec=%{name}
 Icon=%{name}
 Terminal=false
 Type=Application
-Categories=Science;Chemistry;QT;X-MandrivaLinux-MoreApplications-Sciences-Chemistry;
+Categories=Science;Chemistry;QT;
 EOF
 
 %clean
@@ -73,10 +79,8 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(-,root,root)
 %doc COPYRIGHT.txt GPL.txt HISTORY.txt INSTALL.txt README.txt
 %doc TODO.txt 
-#%doc %{_datadir}/%name/doc/*.png
-#%doc %{_datadir}/%name/doc/*.html
-#%doc %{_datadir}/%name/doc/*.txt
 %_bindir/xdrawchem
 %dir %_datadir/xdrawchem
 %_datadir/xdrawchem/*
 %{_datadir}/applications/*.desktop
+

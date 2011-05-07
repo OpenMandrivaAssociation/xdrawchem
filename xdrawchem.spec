@@ -33,18 +33,10 @@ XDrawChem and other chemistry applications.
 %patch1 -p1 -b .ob
 
 %build
-#export QTDIR=%_prefix/lib/qt3
-#export KDEDIR=%_prefix
-#export LD_LIBRARY_PATH=$QTDIR/lib:$KDEDIR/lib:$LD_LIBRARY_PATH
-#export PATH=$QTDIR/bin:$KDEDIR/bin:$PATH
-
-
 %configure2_5x \
-		--with-qtincdir=`pkg-config qt-mt --variable includedir` \
-		--with-qtlibdir=`pkg-config qt-mt --variable libdir` \
-
-	
-%make qtlibname=qt-mt
+	--with-qtincdir=%qt3include \
+	--with-qtlibdir=%qt3lib
+%make
 
 %install
 rm -rf $RPM_BUILD_ROOT

@@ -9,6 +9,7 @@ Release: 	%{release}
 Source: 	xdrawchem-%{version}.tar.bz2
 Patch0:		%{name}-gcc43.patch
 Patch1:		%{name}-ob22.patch
+Patch2:		xdrawchem-warn.patch
 URL: 		http://xdrawchem.sourceforge.net
 License: 	GPLv2+
 Group: 		Sciences/Chemistry
@@ -29,8 +30,10 @@ XDrawChem and other chemistry applications.
 %setup -q
 %patch0 -p1 -b .gcc43
 %patch1 -p1 -b .ob
+%patch2 -p1 -b .warn
 
 %build
+export PATH="%qt3bin:$PATH"
 %configure2_5x \
 	--with-qtincdir=%qt3include \
 	--with-qtlibdir=%qt3lib
@@ -38,7 +41,9 @@ XDrawChem and other chemistry applications.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-%makeinstall DEST=$RPM_BUILD_ROOT/usr/bin
+%makeinstall_std
+
+install -Dpm 644 ring/xdrawchem-icon.png $RPM_BUILD_ROOT%{_datadir}/icons/hicolor/48x48/apps/xdrawchem.png
 
 # menu
 
@@ -51,7 +56,7 @@ Exec=%{name}
 Icon=%{name}
 Terminal=false
 Type=Application
-Categories=Science;Chemistry;QT;
+Categories=Science;Chemistry;Qt;
 EOF
 
 %clean
@@ -76,4 +81,4 @@ rm -rf $RPM_BUILD_ROOT
 %dir %_datadir/xdrawchem
 %_datadir/xdrawchem/*
 %{_datadir}/applications/*.desktop
-
+%{_datadir}/icons/hicolor/*/apps/xdrawchem.png

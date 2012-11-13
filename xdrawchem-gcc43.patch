@@ -1,0 +1,8 @@
+diff -up xdrawchem-1.9.9/xdrawchem/molinfodialog.cpp.gcc43 xdrawchem-1.9.9/xdrawchem/molinfodialog.cpp
+--- xdrawchem-1.9.9/xdrawchem/molinfodialog.cpp.gcc43	2005-08-07 22:00:19.000000000 +0200
++++ xdrawchem-1.9.9/xdrawchem/molinfodialog.cpp	2008-01-07 00:43:15.000000000 +0100
+@@ -1,3 +1,4 @@
++#include <cstdlib>
+ #include <qapplication.h>
+ #include <qclipboard.h>
+ 

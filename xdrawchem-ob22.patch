@@ -1,0 +1,60 @@
+diff -up xdrawchem-1.9.9/xdrawchem/application_ob.cpp.ob xdrawchem-1.9.9/xdrawchem/application_ob.cpp
+--- xdrawchem-1.9.9/xdrawchem/application_ob.cpp.ob	2005-11-30 04:47:14.000000000 +0100
++++ xdrawchem-1.9.9/xdrawchem/application_ob.cpp	2010-11-25 01:10:06.532000767 +0100
+@@ -45,23 +45,38 @@ void ApplicationWindow::OBGetFilters() {
+   readFilters.append(str1);
+   writeFilters.append(str1);
+ 
+-  Formatpos pos;
++  int i;
+   OBFormat* pFormat;
+-  const char* str=NULL;
+-  while(OBConversion::GetNextFormat(pos,str,pFormat))
++  vector<string> pFormats=Conv.GetSupportedInputFormat();
++
++  for(i=0; i < pFormats.size(); i++)
+     {
+       //std::cout << "  " << str << std::endl;
+-      if((pFormat->Flags() & NOTWRITABLE) && (pFormat->Flags() & NOTREADABLE))
++      pFormat=Conv.FindFormat(pFormats[i].c_str());
++      if(!pFormat) continue;
++      if(pFormat->Flags() & NOTREADABLE)
++      continue;
++      str1 = pFormats[i];
++      myext = str1.left( str1.find(" -- ") );
++      str1.append("(*.");
++      str1.append(myext);
++      str1.append(")");
++      readFilters.append(str1);
++    }
++
++  pFormats=Conv.GetSupportedOutputFormat();
++  for(i=0; i < pFormats.size(); i++)
++    {
++      pFormat=Conv.FindFormat(pFormats[i].c_str());
++      if(!pFormat) continue;
++      if(pFormat->Flags() & NOTWRITABLE)
+ 	continue;
+-      str1 = str;
++      str1 = pFormats[i];
+       myext = str1.left( str1.find(" -- ") );
+       str1.append("(*.");
+       str1.append(myext);
+       str1.append(")");
+-      if ( (pFormat->Flags() & NOTREADABLE) == 0 )
+-	readFilters.append(str1);
+-      if ( (pFormat->Flags() & NOTWRITABLE) == 0 )
+-	writeFilters.append(str1);
++      writeFilters.append(str1);
+     }
+   
+   filters.sort();
+@@ -87,7 +102,7 @@ void ApplicationWindow::OBNewLoad(QStrin
+   OBFormat *inFormat = NULL;
+ 
+   if (infilter.left(2) == "--") {
+-    inFormat = Conv.FormatFromExt(infile);
++    inFormat = Conv.FormatFromExt((const char *)infile);
+     if (inFormat == NULL) {
+       QMessageBox::warning( 0, tr("Could not determine file type"),
+ 			    tr("Please select a file type from the list.") );

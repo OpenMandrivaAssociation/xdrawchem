@@ -10,7 +10,7 @@ Source: 	xdrawchem-%{version}.tar.bz2
 Patch0:		%{name}-gcc43.patch
 Patch1:		%{name}-ob22.patch
 Patch2:		xdrawchem-warn.patch
-URL: 		http://xdrawchem.sourceforge.net
+URL: 		https://xdrawchem.sourceforge.net
 License: 	GPLv2+
 Group: 		Sciences/Chemistry
 BuildRoot: 	%{_tmppath}/%{name}-buildroot

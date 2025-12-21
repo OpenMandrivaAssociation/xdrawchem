@@ -14,6 +14,11 @@ URL: 		https://xdrawchem.sourceforge.net
 License: 	GPLv2+
 Group: 		Sciences/Chemistry
 BuildRoot: 	%{_tmppath}/%{name}-buildroot
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires: 	qt3-devel openbabel-devel >= 2.0.0
 Requires:	openbabel >= 2.0.0
 Obsoletes:	kde3-xdrawchem

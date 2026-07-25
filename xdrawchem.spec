@@ -1,6 +1,6 @@
 %define name xdrawchem
 %define version 1.9.9
-%define release %mkrel 7
+%define release 8
 
 Summary: 	2D chemical structures drawing tool
 Name: 		%{name}
